@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz - ข้อที่ <%= step %>
+    </title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/quiz.css">
+      <link rel="icon" type="image/png" href="image/logoproject.png">
+</head>
+
+<body>
+
+    <div class="container" style="max-width: 700px; margin: 0 auto; padding: 0 20px;">
+
+        <div class="status-bar">
+            <div class="custom-badge badge-info">ผู้เล่น: <%= nickname %>
+            </div>
+            <div class="custom-badge badge-score">ข้อที่: <%= step %> | คะแนน: <%= currentScore %>
+            </div>
+        </div>
+
+        <div class="progress-container">
+            <div class="progress-fill" style="width: <%= (step / 5) * 100 %>%"></div>
+        </div>
+
+        <div class="quiz-card">
+            <h2>
+                <%= question.question_text %>
+            </h2>
+
+            <% if (!showResult) { %>
+                <form action="/answer" method="POST">
+                    <input type="hidden" name="step" value="<%= step %>">
+                    <input type="hidden" name="currentScore" value="<%= currentScore %>">
+
+                    <div class="options-list">
+                        <label class="quiz-option">
+                            <input type="radio" name="selectedAnswer" value="<%= question.option_a %>" required>
+                            <span>ก. <%= question.option_a %></span>
+                        </label>
+
+                        <label class="quiz-option">
+                            <input type="radio" name="selectedAnswer" value="<%= question.option_b %>" required>
+                            <span>ข. <%= question.option_b %></span>
+                        </label>
+
+                        <label class="quiz-option">
+                            <input type="radio" name="selectedAnswer" value="<%= question.option_c %>" required>
+                            <span>ค. <%= question.option_c %></span>
+                        </label>
+
+                        <label class="quiz-option">
+                            <input type="radio" name="selectedAnswer" value="<%= question.option_d %>" required>
+                            <span>ง. <%= question.option_d %></span>
+                        </label>
+                    </div>
+                    <button type="submit" class="btn-submit">ยืนยันคำตอบ ➔</button>
+                </form>
+
+                <% } else { %>
+                    <div class="result-box">
+                        <% if (isCorrect) { %>
+                            <h3 class="text-success">ถูกต้อง!เริ่ดเว่อค่ะ 🎉 (+10 คะแนน)</h3>
+                            <% } else { %>
+                                <h3 class="text-danger">ยังไม่ถูกนะ... 😢</h3>
+                                <p style="margin-top:10px;">คำตอบที่ถูกคือ: <strong>
+                                        <%= correctAnswer %>
+                                    </strong></p>
+                                <% } %>
+                    </div>
+
+                    <a href="/quiz?step=<%= step + 1 %>&currentScore=<%= currentScore %>" class="btn btn-primary"
+                        style="text-decoration: none;">
+                        ไปยังข้อถัดไป ➔
+                    </a>
+                    <% } %>
+        </div>
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,168 @@
+/* index.css */
+:root {
+    --primary-color: #764ba2;
+    --accent-color: #ff9f43; /* สีส้มสำหรับปุ่มทอง/Leaderboard */
+    --start-btn-color: #2ecc71; /* สีเขียวสำหรับปุ่มเริ่มเกม */
+    --text-main: #2d3436;
+    --text-muted: #636e72;
+    --bg-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+body {
+    font-family: 'Kanit', sans-serif;
+    background: var(--bg-gradient);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    margin: 0;
+}
+
+.container {
+    width: 100%;
+}
+
+h1.display-4 {
+    color: white;
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 25px;
+    text-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.card {
+    background: white;
+    padding: 35px;
+    border-radius: 24px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+}
+
+h3 {
+    text-align: center;
+    color: var(--text-main);
+    margin-bottom: 5px;
+}
+
+.text-primary {
+    color: var(--primary-color);
+}
+
+hr {
+    border: 0;
+    border-top: 1px solid #eee;
+    margin: 25px 0;
+}
+
+/* Form Styling */
+.form-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.form-label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: var(--text-main);
+}
+
+.form-control {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid #edf2f7;
+    border-radius: 12px;
+    font-family: 'Kanit', sans-serif;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+/* ปรับแต่ง Select ให้ดูเข้ากัน */
+select.form-control {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%23764ba2' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: calc(100% - 15px) center;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 4px rgba(118, 75, 162, 0.1);
+}
+
+.form-text {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-top: 6px;
+}
+
+/* Button Group */
+.btn-group {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 30px;
+}
+
+.btn {
+    padding: 14px;
+    border: none;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    font-family: 'Kanit', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn-start {
+    background-color: var(--start-btn-color);
+    color: white;
+}
+
+.btn-start:hover {
+    filter: brightness(1.05);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(46, 204, 113, 0.3);
+}
+
+.btn-outline-warning {
+    background-color: transparent;
+    color: var(--accent-color);
+    border: 2px solid var(--accent-color);
+}
+
+.btn-outline-warning:hover {
+    background-color: var(--accent-color);
+    color: white;
+}
+
+/* Footer & Note */
+.footer-links {
+    text-align: center;
+    margin-top: 25px;
+}
+
+.text-danger {
+    color: #e74c3c;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.text-danger:hover {
+    text-decoration: underline;
+}
+
+.note {
+    text-align: center;
+    color: rgba(255, 255, 255, 0.8);
+    margin-top: 20px;
+    font-size: 0.85rem;
+}

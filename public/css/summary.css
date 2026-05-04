@@ -1,0 +1,145 @@
+/* summary.css */
+:root {
+    --primary-color: #764ba2;
+    --success-color: #2ecc71;
+    --danger-color: #e74c3c;
+    --bg-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+body {
+    font-family: 'Kanit', sans-serif;
+    background: var(--bg-gradient);
+    min-height: 100vh;
+    margin: 0;
+    padding: 40px 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.container {
+    width: 100%;
+    max-width: 650px;
+}
+
+.page-title {
+    color: white;
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.summary-card {
+    background: white;
+    padding: 40px;
+    border-radius: 24px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+}
+
+/* Score Circle Section */
+.score-circle {
+    width: 150px;
+    height: 150px;
+    background: var(--bg-gradient);
+    border-radius: 50%;
+    margin: 0 auto 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    box-shadow: 0 10px 20px rgba(118, 75, 162, 0.3);
+    border: 8px solid #f0ebf8;
+}
+
+.score-num {
+    font-size: 3rem;
+    font-weight: 600;
+    line-height: 1;
+}
+
+.score-label {
+    font-size: 1rem;
+    opacity: 0.9;
+}
+
+/* Stats Boxes */
+.stats-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-bottom: 35px;
+}
+
+.stat-box {
+    padding: 15px;
+    border-radius: 16px;
+    text-align: center;
+    font-weight: 500;
+}
+
+.stat-correct { background-color: #e8f8f0; color: var(--success-color); }
+.stat-wrong { background-color: #fef1f0; color: var(--danger-color); }
+
+.stat-num {
+    display: block;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+/* Question Details List */
+.details-list {
+    margin-bottom: 35px;
+    max-height: 400px;
+    overflow-y: auto; /* ให้เลื่อนดูได้กรณีโจทย์เยอะ */
+    padding-right: 10px;
+}
+
+.question-item {
+    padding: 15px;
+    border-radius: 12px;
+    margin-bottom: 12px;
+    border-left: 5px solid #ddd;
+    background: #f8f9fa;
+}
+
+.question-correct { border-left-color: var(--success-color); }
+.question-wrong { border-left-color: var(--danger-color); }
+
+.tags-wrapper {
+    margin-top: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.answer-tag {
+    font-size: 0.85rem;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-weight: 400;
+}
+
+.tag-correct { background: #d4edda; color: #155724; }
+.tag-wrong { background: #f8d7da; color: #721c24; }
+
+/* Action Button */
+.btn-leaderboard {
+    display: inline-block;
+    padding: 16px 32px;
+    background: var(--primary-color);
+    color: white;
+    text-decoration: none;
+    border-radius: 15px;
+    font-weight: 600;
+    transition: all 0.3s;
+    box-shadow: 0 4px 15px rgba(118, 75, 162, 0.3);
+}
+
+.btn-leaderboard:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(118, 75, 162, 0.4);
+}
+
+/* Custom Scrollbar สำหรับเครื่องที่จอเล็ก */
+.details-list::-webkit-scrollbar { width: 6px; }
+.details-list::-webkit-scrollbar-thumb { background: #ddd; border-radius: 10px; }

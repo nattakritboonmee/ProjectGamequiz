@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leaderboard - อันดับสูงสุด</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="/css/leaderboard.css">
+      <link rel="icon" type="image/png" href="image/logoproject.png">
+
+</head>
+<body>
+
+    <div class="container" style="max-width: 900px; padding-top: 40px;">
+        <h1>🏆 ตารางคะแนนสูงสุดใครปังใครเลิศ (Top 10)</h1>
+
+        <div class="filter-section">
+            <form method="GET" action="/leaderboard" style="width: 220px;">
+                <select name="category" class="form-control" onchange="this.form.submit()">
+                    <% categories.forEach(category => { %>
+                        <option value="<%= category.id %>" <%= selectedCategory == category.id ? 'selected' : '' %>>
+                            <%= category.name %>
+                        </option>
+                    <% }) %>
+                </select>
+            </form>
+
+            <input type="text" id="searchInput" class="form-control" placeholder="🔍 ค้นหาชื่อเล่น..." style="max-width: 300px;">
+        </div>
+
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th class="text-center" style="width: 80px;">อันดับ</th>
+                        <th>ชื่อผู้เล่น (Nickname)</th>
+                        <th class="text-center">คะแนนที่ทำได้</th>
+                        <% if (role === 'Admin') { %>
+                            <th class="text-center">จัดการ</th>
+                        <% } %>
+                    </tr>
+                </thead>
+                <tbody id="leaderboardBody">
+                    <% if (players && players.length > 0) { %>
+                        <% players.forEach((p, index) => { %>
+                            <tr class="player-row">
+                                <td class="text-center">
+                                    <% if(index === 0) { %> <span class="rank-badge rank-1">1</span>
+                                    <% } else if(index === 1) { %> <span class="rank-badge rank-2">2</span>
+                                    <% } else if(index === 2) { %> <span class="rank-badge rank-3">3</span>
+                                    <% } else { %>
+                                        <span style="font-weight: bold; color: #777;"><%= index + 1 %></span>
+                                    <% } %>
+                                </td>
+                                <td>
+                                    <strong class="player-name"><%= p.nickname %></strong>
+                                    <% if (p.user_id === sessionUserId || role === 'Admin') { %>
+                                        <a href="/edit?id=<%= p.id %>&nickname=<%= p.nickname %>" class="btn-edit">
+                                            ✏️ แก้ไข
+                                        </a>
+                                    <% } %>
+                                </td>
+                                <td class="text-center">
+                                    <span class="score-pill"><%= p.score %> pts</span>
+                                </td>
+                                <% if (role === 'Admin') { %>
+                                    <td class="text-center">
+                                        <form action="/delete-score/<%= p.id %>" method="POST" 
+                                              onsubmit="return confirm('ยืนยันที่จะลบคะแนนของ <%= p.nickname %>?')">
+                                            <button type="submit" class="btn-delete">ลบ</button>
+                                        </form>
+                                    </td>
+                                <% } %>
+                            </tr>
+                        <% }) %>
+                    <% } else { %>
+                        <tr>
+                            <td colspan="<%= role === 'Admin' ? 4 : 3 %>" class="text-center" style="padding: 40px;">ยังไม่มีข้อมูล</td>
+                        </tr>
+                    <% } %>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="text-center">
+            <a href="/" class="btn btn-primary btn-home">กลับไปหน้าแรก / เล่นใหม่</a>
+        </div>
+    </div>
+
+    <script src="/js/leaderboardscript.js"></script>
+</body>
+</html>
+</body>
+</html>

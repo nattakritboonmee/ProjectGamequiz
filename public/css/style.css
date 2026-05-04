@@ -1,0 +1,45 @@
+/* public/css/common.css */
+
+/* สไตล์ปุ่มหลักที่ใช้ทุกหน้า */
+.btn {
+    display: block;
+    width: 100%;
+    padding: 14px;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 1.05rem;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: none;
+    font-family: 'Kanit', sans-serif;
+}
+
+.btn-primary {
+    background: linear-gradient(to right, #667eea, #764ba2);
+    color: white;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(118, 75, 162, 0.4);
+    filter: brightness(1.1);
+}
+
+.btn-light {
+    background-color: #f8f9fa;
+    border: 1px solid #ddd;
+    color: #666;
+}
+
+/* แถม: สไตล์ Input ที่ใช้เหมือนกันทุกหน้า */
+.form-control {
+    width: 100%;
+    border-radius: 12px;
+    border: 2px solid #eee;
+    padding: 14px;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+    outline: none;
+}

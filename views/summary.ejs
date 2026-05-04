@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>สรุปผลการเล่น</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/summary.css">
+      <link rel="icon" type="image/png" href="image/logoproject.png">
+</head>
+<body>
+
+    <div class="container">
+        <h1 class="page-title">🎯 สรุปผลการเล่น</h1>
+
+        <div class="summary-card">
+            <div class="score-circle">
+                <span class="score-num"><%= totalScore %></span>
+                <span class="score-label">คะแนน</span>
+            </div>
+
+            <h4 style="text-align: center; color: #4a148c; margin-bottom: 25px;">
+                สวัสดี <strong><%= nickname %></strong>! นี่คือผลการเล่นของคุณ
+            </h4>
+
+            <div class="stats-container">
+                <div class="stat-box stat-correct">
+                    ✅ ตอบถูก
+                    <span class="stat-num"><%= correctCount %> <small style="font-size: 1rem;">ข้อ</small></span>
+                </div>
+                <div class="stat-box stat-wrong">
+                    ❌ ตอบผิด
+                    <span class="stat-num"><%= wrongCount %> <small style="font-size: 1rem;">ข้อ</small></span>
+                </div>
+            </div>
+
+            <h5 style="color: #4a148c; margin-bottom: 15px;">📋 รายละเอียดแต่ละข้อ</h5>
+
+            <div class="details-list">
+                <% answers.forEach(function(item, i) { %>
+                    <div class="question-item <%= item.isCorrect ? 'question-correct' : 'question-wrong' %>">
+                        <div style="font-weight: 400; line-height: 1.5;">
+                            <strong style="color: #4a148c;">ข้อ <%= i + 1 %>:</strong> <%= item.questionText %>
+                        </div>
+                        
+                        <div class="tags-wrapper">
+                            <% if (item.isCorrect) { %>
+                                <span class="answer-tag tag-correct">✅ ตอบถูกต้อง</span>
+                                <span class="answer-tag tag-correct" style="opacity: 0.8;">คำตอบ: <%= item.correctText %></span>
+                            <% } else { %>
+                                <span class="answer-tag tag-wrong">❌ คุณตอบ: <%= item.selectedText %></span>
+                                <span class="answer-tag tag-correct">✅ เฉลย: <%= item.correctText %></span>
+                            <% } %>
+                        </div>
+                    </div>
+                <% }); %>
+            </div>
+
+            <div style="text-align: center;">
+                <a href="/leaderboard" class="btn-leaderboard">
+                    ดูอันดับ Leaderboard 🏆
+                </a>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,172 @@
+/* leaderboard.css */
+:root {
+    --primary-color: #764ba2;
+    --gold: #f1c40f;
+    --silver: #bdc3c7;
+    --bronze: #cd7f32;
+    --text-main: #2d3436;
+    --bg-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+body {
+    font-family: 'Kanit', sans-serif;
+    background: var(--bg-gradient);
+    min-height: 100vh;
+    margin: 0;
+    padding: 40px 20px; /* เพิ่ม padding บน-ล่าง ให้ดูมีพื้นที่หายใจ */
+    
+    /* แก้ไขส่วนนี้เพื่อให้ทุกอย่างเรียงกันลงมาและอยู่กึ่งกลางแนวนอน */
+    display: flex;
+    flex-direction: column; 
+    align-items: center; 
+    justify-content: flex-start; /* ให้เริ่มจากด้านบน แต่จัดกลางแนวนอน */
+}
+
+.container {
+    width: 100%;
+    max-width: 900px; /* จำกัดความกว้างเพื่อไม่ให้ตารางยืดจนอ่านยาก */
+    margin: 0 auto;   /* ช่วยยืนยันว่ากึ่งกลางแน่นอน */
+}
+h1 {
+    color: white;
+    text-align: center;
+    font-size: 1.8rem;
+    margin-bottom: 30px;
+    text-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    width: 100%; /* บังคับให้หัวข้อเต็มกึ่งกลาง */
+}
+/* Filter & Search Section */
+.filter-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+    flex-wrap: wrap; /* รองรับมือถือ */
+}
+
+.form-control {
+    padding: 10px 15px;
+    border-radius: 12px;
+    border: none;
+    font-family: 'Kanit', sans-serif;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+}
+
+/* Table Design */
+.table-container {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    margin-bottom: 30px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+thead {
+    background-color: #f8f9fa;
+    border-bottom: 2px solid #eee;
+}
+
+th {
+    padding: 15px;
+    text-align: left;
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
+td {
+    padding: 15px;
+    border-bottom: 1px solid #f1f1f1;
+    vertical-align: middle;
+}
+
+.text-center { text-align: center; }
+
+/* Rank Badges */
+.rank-badge {
+    display: inline-block;
+    width: 35px;
+    height: 35px;
+    line-height: 35px;
+    border-radius: 50%;
+    font-weight: bold;
+    color: white;
+}
+
+.rank-1 { background: var(--gold); box-shadow: 0 0 15px rgba(241, 196, 15, 0.4); }
+.rank-2 { background: var(--silver); }
+.rank-3 { background: var(--bronze); }
+
+/* Player styling */
+.player-name {
+    font-size: 1.05rem;
+    color: #333;
+}
+
+.score-pill {
+    background: var(--primary-color);
+    color: white;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+/* Action Buttons */
+.btn-edit {
+    display: inline-block;
+    margin-left: 10px;
+    text-decoration: none;
+    font-size: 0.85rem;
+    color: var(--primary-color);
+    background: #f0ebf8;
+    padding: 4px 10px;
+    border-radius: 8px;
+    transition: all 0.2s;
+}
+
+.btn-edit:hover { background: var(--primary-color); color: white; }
+
+.btn-delete {
+    background: #ff4757;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: 'Kanit', sans-serif;
+    transition: 0.2s;
+}
+
+.btn-delete:hover { background: #ff6b81; }
+
+/* Home Button */
+.btn-home {
+    display: inline-block;
+    background: white;
+    color: var(--primary-color);
+    padding: 15px 30px;
+    border-radius: 15px;
+    text-decoration: none;
+    font-weight: 600;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s;
+}
+
+.btn-home:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.2);
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .filter-section { flex-direction: column; align-items: stretch; }
+    .filter-section form, #searchInput { max-width: 100% !important; width: 100% !important; }
+    td, th { padding: 10px 8px; font-size: 0.9rem; }
+}

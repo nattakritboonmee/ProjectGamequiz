@@ -9,7 +9,7 @@ WHERE id = 2;
 
 ---เพิ่มหมวดหมู่อันที่ 3 มา-----
 insert into categories(name) values
-('Web Security & UX');
+('FullStack'),('Authentication'),('Web Security & UX');
 
 ---เพิ่ม ตัวเลือก C D ----
 ALTER TABLE questions 
@@ -23,7 +23,8 @@ DELETE FROM questions
 WHERE id IN (1, 2, 3, 4);
 
 SELECT setval(pg_get_serial_sequence('questions', 'id'), (SELECT MAX(id) FROM questions));
-
+insert into categories(name) values
+('FullStack'),('Authentication'),('Web Security & UX');
 ---เพิ่มคำถาม---
 
 ---หมวดFull Stack---

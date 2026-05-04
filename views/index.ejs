@@ -1,26 +1,26 @@
 <!DOCTYPE html>
 <html lang="th">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quiz Game - เริ่มต้นการแข่งขัน</title>
-    
+
     <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600&display=swap" rel="stylesheet">
-    
     <link rel="stylesheet" href="/css/style.css">
-    
     <link rel="stylesheet" href="/css/index.css">
-      <link rel="icon" type="image/png" href="image/logoproject.png">
+    <link rel="icon" type="image/png" href="image/logoproject.png">
 </head>
+
 <body>
 
     <div class="container" style="max-width: 550px;">
         <h1 class="display-4">🏆 QUIZ</h1>
-        
+
         <div class="card">
             <h3>สวัสดีคุณ <span class="text-primary"><%= username %></span></h3>
             <p style="color: #666; font-size: 0.9rem; text-align: center;">ล็อกอินเข้าระบบเรียบร้อยแล้ว</p>
-            
+
             <hr>
 
             <form action="/start-game" method="POST">
@@ -40,7 +40,9 @@
                     <select name="categoryId" class="form-control" required>
                         <option value="" disabled selected>-- กรุณาเลือกหมวดหมู่ --</option>
                         <% categories.forEach(category => { %>
-                            <option value="<%= category.id %>"><%= category.name %></option>
+                            <option value="<%= category.id %>">
+                                <%= category.name %>
+                            </option>
                         <% }) %>
                     </select>
                     <div class="form-text">เลือกหัวข้อที่คุณถนัดเพื่อเริ่มทำคะแนน!</div>
@@ -65,4 +67,5 @@
     </div>
 
 </body>
+
 </html>

@@ -1,15 +1,11 @@
-// เปลี่ยนการ import model ใหม่
 const Quiz = require('../models/quizModel');
 const Leaderboard = require('../models/leaderboardModel');
 
-// 6. แสดง Leaderboard
+// 6. แสดง Leaderboard (ใช้ req.query.category)
 exports.getLeaderboard = async (req, res) => {
     try {
-        // ดึงหมวดหมู่จาก Quiz Model
         const categories = await Quiz.getCategories();
         const categoryId = req.query.category || categories[0].id;
-
-        // ดึงอันดับจาก Leaderboard Model
         const players = await Leaderboard.getLeaderboardByCategory(categoryId);
 
         res.render('leaderboard', {
@@ -19,31 +15,34 @@ exports.getLeaderboard = async (req, res) => {
             sessionUserId: req.session.userId,
             role: req.session.role ? req.session.role.trim() : 'user'
         });
-
     } catch (err) {
         console.error("Leaderboard Error:", err);
         res.status(500).send("Error fetching leaderboard");
     }
 };
 
-// 7. หน้าแก้ไขชื่อ
+// 7. หน้าแก้ไขชื่อ (รับ categoryId จาก URL)
+// แก้ไขจุดนี้ใน controllers/leaderboardController.js
 exports.getEditPage = async (req, res) => {
-    const { id, nickname, score } = req.query;
+    // ต้องดึง categoryId ออกมาจาก req.query ด้วย
+    const { id, nickname, score, categoryId } = req.query; 
+    
     res.render('edit', {
         scoreId: id,
         oldNickname: nickname,
-        score: score
+        score: score,
+        categoryId: categoryId // ส่งตัวแปรนี้ไปให้ edit.ejs
     });
 };
 
 // 8. บันทึกชื่อเล่นใหม่
 exports.postEditNickname = async (req, res) => {
-    const { scoreId, newNickname } = req.body;
+    const { scoreId, newNickname, categoryId } = req.body; 
     const userId = req.session.userId;
 
     try {
-        // เปลี่ยนเป็น Leaderboard Model
         await Leaderboard.updateNickname(scoreId, userId, newNickname);
+        // ดีดกลับไปโดยใช้ชื่อ query ว่า 'category' ให้ตรงกับ getLeaderboard
         res.redirect('/leaderboard');
     } catch (err) {
         console.error(err);
@@ -52,15 +51,24 @@ exports.postEditNickname = async (req, res) => {
 };
 
 // 9. ลบคะแนน (สำหรับ Admin)
+// ใน controllers/leaderboardController.js
 exports.postDeleteScore = async (req, res) => {
     const scoreId = req.params.id;
+    // รับค่าจาก query string (?category=...)
+    const category = req.query.category; 
+
     try {
-        // เปลี่ยนเป็น Leaderboard Model
         await Leaderboard.deleteScoreById(scoreId);
-        res.redirect('/leaderboard');
+        
+        if (category) {
+            // ส่งกลับไปยังหมวดเดิม
+            res.redirect(`/leaderboard?category=${category}`);
+        } else {
+            res.redirect('/leaderboard');
+        }
     } catch (err) {
         console.log(err);
-        res.status(500).send("Error deleting score");
+        res.status(500).send("Error");
     }
 };
 
@@ -68,17 +76,17 @@ exports.postDeleteScore = async (req, res) => {
 exports.postSearchRank = async (req, res) => {
     try {
         const { nickname } = req.body;
-        // เปลี่ยนเป็น Leaderboard Model ทั้งหมด
         const player = await Leaderboard.getPlayerRank(nickname);
         const players = await Leaderboard.getLeaderboard();
 
         res.render('leaderboard', {
             players: players,
+            categories: await Quiz.getCategories(), // เพิ่ม categories เพื่อไม่ให้หน้าพัง
+            selectedCategory: null,
             sessionUserId: req.session.userId,
             role: req.session.role ? req.session.role.trim() : 'user',
             searchResult: player || null
         });
-
     } catch (err) {
         console.error(err);
         res.status(500).send("Error searching player");

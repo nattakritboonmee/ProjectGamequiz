@@ -13,6 +13,6 @@ const User = {
         const res = await pool.query(query, [username, password]);
         return res.rows[0];
     },
-   
+  
 };
 module.exports = User;

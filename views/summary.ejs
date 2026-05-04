@@ -4,11 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>สรุปผลการเล่น</title>
-    
     <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/summary.css">
-      <link rel="icon" type="image/png" href="image/logoproject.png">
+    <link rel="icon" type="image/png" href="image/logoproject.png">
 </head>
 <body>
 
@@ -41,25 +40,25 @@
             <div class="details-list">
                 <% answers.forEach(function(item, i) { %>
                     <div class="question-item <%= item.isCorrect ? 'question-correct' : 'question-wrong' %>">
-                        <div style="font-weight: 400; line-height: 1.5;">
+                        <div style="font-weight: 400; line-height: 1.5; margin-bottom: 8px;">
                             <strong style="color: #4a148c;">ข้อ <%= i + 1 %>:</strong> <%= item.questionText %>
                         </div>
                         
                         <div class="tags-wrapper">
                             <% if (item.isCorrect) { %>
                                 <span class="answer-tag tag-correct">✅ ตอบถูกต้อง</span>
-                                <span class="answer-tag tag-correct" style="opacity: 0.8;">คำตอบ: <%= item.correctText %></span>
+                                <span class="answer-tag tag-correct" style="opacity: 0.8;">คำตอบ: <%= item.selectedAnswer %></span>
                             <% } else { %>
-                                <span class="answer-tag tag-wrong">❌ คุณตอบ: <%= item.selectedText %></span>
-                                <span class="answer-tag tag-correct">✅ เฉลย: <%= item.correctText %></span>
+                                <span class="answer-tag tag-wrong">❌ คุณตอบ: <%= item.selectedAnswer %></span>
+                                <span class="answer-tag tag-correct">✅ เฉลย: <%= item.correctAnswer %></span>
                             <% } %>
                         </div>
                     </div>
                 <% }); %>
             </div>
 
-            <div style="text-align: center;">
-                <a href="/leaderboard" class="btn-leaderboard">
+            <div style="text-align: center; margin-top: 20px;">
+                <a href="/leaderboard" class="btn-leaderboard" style="text-decoration: none; display: inline-block;">
                     ดูอันดับ Leaderboard 🏆
                 </a>
             </div>

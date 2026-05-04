@@ -17,7 +17,9 @@ exports.getHome = async (req, res) => {
 };
 
 // 2. รับชื่อเล่นและ "หมวดหมู่" ที่เลือกจากหน้าแรก
+// แก้ไข exports.postStartGame ใน controllers/gameController.js
 exports.postStartGame = (req, res) => {
+    // รับค่าปกติ แล้วยัดลง Session เลย
     req.session.nickname = req.body.nickname;
     req.session.categoryId = req.body.categoryId;
     req.session.answerLog = []; 
@@ -59,47 +61,41 @@ exports.getQuiz = async (req, res) => {
 // 4. ตรวจคำตอบ
 exports.postAnswer = async (req, res) => {
     try {
-        // selectedAnswer คราวนี้จะเป็นข้อความ เช่น "แมว" แทนที่จะเป็น "A"
         const { step, currentScore, selectedAnswer } = req.body;
-        const categoryId = req.session.categoryId;
-        const nickname = req.session.nickname;
+        const { categoryId, nickname } = req.session;
 
         const questions = await Quiz.getQuestionsByCategory(categoryId);
         const currentQuestion = questions[step - 1];
 
         let newScore = parseInt(currentScore);
+        const correctAnswer = currentQuestion.correct_answer;
+        const isCorrect = (selectedAnswer === correctAnswer);
 
-        // --- จุดที่เปลี่ยน: เทียบข้อความตรงๆ ได้เลย ---
-        const correctAnswer = currentQuestion.correct_answer; // ดึงข้อความเฉลยจาก DB
-        const isCorrect = selectedAnswer === correctAnswer; 
+        if (isCorrect) newScore += 10;
 
-        if (isCorrect) {
-            newScore += 10;
-        }
-
-        // บันทึกลง Session (สั้นลงเพราะไม่ต้องหาตัวอักษร A-D)
+        // บันทึกลง Session: ใช้ชื่อ selectedAnswer และ correctAnswer
         if (!req.session.answerLog) req.session.answerLog = [];
         req.session.answerLog.push({
             questionText: currentQuestion.question_text,
-            selectedAnswer: selectedAnswer, // บันทึกข้อความที่เลือก
-            correctAnswer: correctAnswer,   // บันทึกข้อความที่ถูก
+            selectedAnswer: selectedAnswer,
+            correctAnswer: correctAnswer,
             isCorrect: isCorrect
         });
 
         res.render('quiz', {
             nickname,
             question: currentQuestion,
-            step: parseInt(step), 
+            step: parseInt(step),
             currentScore: newScore,
             showResult: true,
+            isCorrect,
             selectedAnswer,
             correctAnswer,
-            isCorrect,
             totalQuestions: questions.length
         });
     } catch (err) {
         console.error(err);
-        res.status(500).send("Error processing answer");
+        res.status(500).send("Error");
     }
 };
 // 5. บันทึกคะแนนและไปหน้า Summary

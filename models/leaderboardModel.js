@@ -67,7 +67,17 @@ const Leaderboard = {
         `;
         const res = await pool.query(query, [id]);
         return res.rows[0];
-    }
+    },
+    isNicknameTaken: async (nickname, currentUserId) => {
+        const query = `
+            SELECT 1 FROM leaderboard 
+            WHERE LOWER(nickname) = LOWER($1) 
+            AND user_id != $2 
+            LIMIT 1
+        `;
+        const res = await pool.query(query, [nickname, currentUserId]);
+        return res.rows.length > 0;
+    },
 };
 
 module.exports = Leaderboard;

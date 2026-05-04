@@ -1,37 +1,36 @@
 <!DOCTYPE html>
 <html lang="th">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>แก้ไขชื่อเล่น - Quiz Game</title>
-    
+
     <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600&display=swap" rel="stylesheet">
-    
+
     <link rel="stylesheet" href="/css/edit.css">
-      <link rel="icon" type="image/png" href="image/logoproject.png">
+    <link rel="icon" type="image/png" href="image/logoproject.png">
 </head>
+
 <body>
 
     <div class="container">
         <div class="card">
             <h3>✏️ แก้ไขชื่อเล่น</h3>
-            
+
             <div class="score-info">
-                คะแนนเดิมของคุณ: <strong><%= score %> pts</strong>
+                คะแนนเดิมของคุณ: <strong>
+                    <%= score %> pts
+                </strong>
             </div>
-            
+
             <form action="/edit-nickname" method="POST">
                 <input type="hidden" name="scoreId" value="<%= scoreId %>">
-                
+                <input type="hidden" name="categoryId" value="<%= categoryId %>">
+
                 <div class="form-group">
                     <label class="form-label">ชื่อเล่นใหม่:</label>
-                    <input type="text" 
-                           name="newNickname" 
-                           class="form-control" 
-                           value="<%= oldNickname %>" 
-                           placeholder="ระบุชื่อเล่นใหม่..."
-                           required 
-                           minlength="2">
+                    <input type="text" name="newNickname" class="form-control" value="<%= oldNickname %>" required>
                 </div>
 
                 <div class="btn-group">
@@ -43,4 +42,5 @@
     </div>
 
 </body>
+
 </html>
